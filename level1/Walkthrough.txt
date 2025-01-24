@@ -1,0 +1,37 @@
+- gdb ile binary dosyamızı başlatalım
+	'gdb ./level1'
+
+
+- dosyamızın içinde yazan fonksiyonları listeleyelim 
+	'info functions'
+
+
+- main fonksiyonun decompile yapalım
+	'disass *main'
+
+
+- kullanılan bazı kütüphaler mevcut printf, scanf, strcmp fikir sahibi olmak adına bir kere çalıştıralım
+	'run'
+
+
+- bizden key istiyor, bizden aldığı keyi strcmp fonksiyonunda karşılaştıracak bu durumda 
+  strcmp parametrelerine bakmamız direkt keyi elde etmemizi sağlayacaktır.
+
+- strcmp fonksiyonuna break point atalım
+	b *0x56556040
+
+- şimdi bir kez daha çalıştıralım bizden tekrar key isteyecek rastgele bir şeyler yazabiliriz  zaten strcmp ye geldiğinde kendiliğinden duracaktır
+	'run'
+
+- şimdi bunu yapma sebebimiz buraya kadar kodu çalıştırıp verilen değerlerin bellekte uygun
+  yerlere yerleştirilmesini sağlamak bizde bu bellek adreslerine ulaşıp buraları okuyacağız
+
+- tekrar tablomuza dönelim strcmp nin üzerinde iki değerin stackden taşındığını görüyoruz 
+  bakmamız gereken yerler burası.
+
+- x/s $ecx yazarak edx değişkeninin içini okuyalım 
+	çıktı olarak bizim verdiğimiz parametreyi verecek
+
+- diğerine de bakalım x/s $edx yazalım
+	çıktı olarak strcmp'nin ikinci paremetresini bize verecektir bu durumda 
+	key='__stack_check'
